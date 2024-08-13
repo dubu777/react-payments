@@ -1,35 +1,30 @@
-import { CardCompany } from '@/types/card';
 import styled from 'styled-components';
 
 
 interface Props {
-  options: CardCompany[];
-  selectedOption: string;
-  onChange: (value: CardCompany) => void;
+  options: string[];
+  defaultValue: string;
+  onSelect: (value: string) => void;
 }
 
 export default function SelectBox({
   options,
-  selectedOption,
-  onChange,
+  defaultValue,
+  onSelect,
 }: Props) {
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOption = options.find(
-      (option) => option.name === e.target.value
-    );
-    if (selectedOption) {
-      onChange(selectedOption);
-    }
-  };
+      const selectedOption = e.target.value;
+      onSelect(selectedOption);
+    };
 
   return (
     <Select onChange={handleSelect} defaultValue="defaultSelected">
       <option value="defaultSelected" disabled hidden>
-        {selectedOption}
+        {defaultValue}
       </option>
       {options.map((option) => (
-        <option key={option.name} value={option.name}>
-          {option.name}
+        <option key={option} value={option}>
+          {option}
         </option>
       ))}
     </Select>
