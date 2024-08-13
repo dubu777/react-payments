@@ -1,70 +1,69 @@
-import { InputType } from "@/types/input";
+import { InputCateory, InputType } from "@/types/input";
 
-
-const INPUT_TYPE_CATEGORIES: Record<string, InputType> = {
+const INPUT_TYPE_CATEGORIES: Record<InputCateory, InputType> = {
   CARD_NUMBER: {
-    inputLabel: '카드번호',
+    inputLabel: "카드번호",
     inputInfo: Array.from({ length: 4 }, (_, index) => ({
       property: `cardNumber${index + 1}`,
-      validateType: 'cardNumber',
+      validateType: "cardNumber",
       maxLength: 4,
       minLength: 4,
-      placeHolder: '1234',
+      placeHolder: "1234",
     })),
   },
   EXPIRY_DATE: {
-    inputLabel: '유효기간',
+    inputLabel: "유효기간",
     inputInfo: [
       {
-        property: 'month',
-        validateType: 'month',
+        property: "month",
+        validateType: "month",
         maxLength: 2,
         minLength: 2,
-        placeHolder: 'MM',
+        placeHolder: "MM",
       },
       {
-        property: 'year',
-        validateType: 'year',
+        property: "year",
+        validateType: "year",
         maxLength: 2,
         minLength: 2,
-        placeHolder: 'YY',
+        placeHolder: "YY",
       },
     ],
   },
   USER_NAME: {
-    inputLabel: '소유자 이름',
+    inputLabel: "소유자 이름",
     inputInfo: [
       {
-        property: 'userName',
-        validateType: 'userName',
+        property: "userName",
+        validateType: "userName",
         maxLength: 20,
         minLength: 1,
-        placeHolder: 'JOHN DOE',
+        placeHolder: "JOHN DOE",
       },
     ],
   },
   CVC: {
-    inputLabel: 'CVC',
+    inputLabel: "CVC",
     inputInfo: [
       {
-        property: 'cvc',
-        validateType: 'cvc',
+        property: "cvc",
+        validateType: "cvc",
         maxLength: 3,
         minLength: 3,
-        placeHolder: '123',
+        placeHolder: "123",
       },
     ],
   },
   PASSWORD: {
-    inputLabel: '비밀번호 앞 2자리',
+    inputLabel: "비밀번호 앞 2자리",
     inputInfo: [
       {
-        property: 'password',
-        validateType: 'password',
+        property: "password",
+        validateType: "password",
         maxLength: 2,
         minLength: 2,
-        placeHolder: '',
-        type: 'password',
+        placeHolder: "",
+        type: "password",
       },
     ],
   },

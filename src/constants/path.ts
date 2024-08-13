@@ -1,6 +1,6 @@
 const path = {
-  ENROLL_CARD: '/',
-  COMPLETED: '/completed'
-} as const
+  ENROLL_CARD: "/",
+  COMPLETED: "/completed",
+} as const;
 
-export {path}
+export { path };
