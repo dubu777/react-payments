@@ -7,8 +7,8 @@ import useNextRef from "@/hooks/useNextRef";
 import { Card } from "@/types/card";
 import isInputFieldCompleted from "@/utils/isInputCompleted";
 import useInputComplete from "@/hooks/useInputComplete";
-import { DEFAULT_CARD_BOOLEAN } from "@/constants/card";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface InputFieldProps {
   inputType: InputType;
@@ -17,6 +17,11 @@ interface InputFieldProps {
   handleNext: () => void;
   inputFieldName: keyof Card;
 }
+
+const animationVariants = {
+  hidden: { opacity: 0, x: -15 },
+  visible: { opacity: 1, x: 0 },
+};
 
 export default function InputField({
   inputType,
@@ -44,7 +49,12 @@ export default function InputField({
   }, [isCompleted]);
 
   return (
-    <InputFieldContainer>
+    <InputFieldContainer
+      initial="hidden"
+      animate="visible"
+      variants={animationVariants}
+      transition={{ duration: 0.5 }}
+    >
       <FieldTitle title={title} subtitle={subtitle} />
       <Label>{inputType.inputLabel}</Label>
       <InputWrapper>
@@ -69,9 +79,10 @@ export default function InputField({
   );
 }
 
-export const InputFieldContainer = styled.div`
+export const InputFieldContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 110px;
 `;
 
