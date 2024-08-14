@@ -4,43 +4,69 @@ import { InputType } from "@/types/input";
 import { Input } from "./Input";
 import useInputStore from "@/store/useInputStore";
 import useNextRef from "@/hooks/useNextRef";
+import { Card } from "@/types/card";
+import isInputFieldCompleted from "@/utils/isInputCompleted";
+import useInputComplete from "@/hooks/useInputComplete";
+import { DEFAULT_CARD_BOOLEAN } from "@/constants/card";
+import { useEffect } from "react";
 
 interface InputFieldProps {
   inputType: InputType;
   title: string;
   subtitle?: string;
   handleNext: () => void;
+  inputFieldName: keyof Card;
 }
 
-export default function InputField({inputType, title, subtitle, handleNext}: InputFieldProps) {
-  const {errorMessages} = useInputStore();
-  const {inputRef, handleInputNext} = useNextRef({
+export default function InputField({
+  inputType,
+  title,
+  subtitle,
+  handleNext,
+  inputFieldName,
+}: InputFieldProps) {
+  const { errorMessages, values } = useInputStore();
+  const { inputRef, handleInputNext } = useNextRef({
     inputType,
     handleNext,
   });
-  const currentErrors = errorMessages[inputType.inputLabel] || {}
+  const { handleComplete } = useInputComplete();
+  const currentErrors = errorMessages[inputType.inputLabel] || {};
+  const isCompleted = isInputFieldCompleted({
+    currentErrors,
+    values,
+    inputType,
+  });
+  console.log(isCompleted, inputFieldName, "인풋필드에서 검증");
+
+  useEffect(() => {
+    handleComplete(inputFieldName, isCompleted);
+  }, [isCompleted]);
+
   return (
     <InputFieldContainer>
-      <FieldTitle title={title} subtitle={subtitle}/>
+      <FieldTitle title={title} subtitle={subtitle} />
       <Label>{inputType.inputLabel}</Label>
       <InputWrapper>
         {inputType.inputInfo.map((info, index) => (
           <Input
             key={info.property}
-            ref={(ref) => inputRef.current[index] = ref as HTMLInputElement}
+            ref={(ref) => (inputRef.current[index] = ref as HTMLInputElement)}
             info={info}
             inputIndex={index}
             inputLabel={inputType.inputLabel}
             isError={!!currentErrors[index]}
-            onNext={() => handleInputNext(index)}
+            onNext={() => {
+              handleInputNext(index);
+            }}
           />
         ))}
       </InputWrapper>
       <ErrorMessage>
-
+        {Object.values(currentErrors).find((message) => message !== "")}
       </ErrorMessage>
     </InputFieldContainer>
-  )
+  );
 }
 
 export const InputFieldContainer = styled.div`

@@ -1,19 +1,20 @@
 import CardView from "@/components/CardView";
 import InputForm from "@/components/InputForm";
 import { path } from "@/constants/path";
-import { useState } from "react";
+import useInputStore from "@/store/useInputStore";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 
 export default function EnrollCard() {
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const {canSubmit, values} = useInputStore();
   return (
     <EnrollCardContainer>
-      <CardView />
-      <InputForm />
-      <Link to={path.COMPLETED} >
-        {isCompleted && <SubmitButton>확인</SubmitButton>}
+      <CardView cardInfo={values}/>
+      <InputForm
+      />
+      <Link to={path.COMPLETED}  state={{cardInfo: values}}>
+        {canSubmit && <SubmitButton>확인</SubmitButton>}
       </Link>
     </EnrollCardContainer>
   )

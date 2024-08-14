@@ -15,6 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {info, inputIndex, inputLabel, isError, onNext} = props;
   const {handleChange, handleBlur, handleKeyDown} = useInput({
     property: info.property,
+    validateType: info.validateType,
     minLength: info.minLength,
     maxLength: info.maxLength,
     inputLabel,
@@ -25,6 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <StyledInput
       ref={ref}
       $error={isError}
+      maxLength={info.maxLength}
       placeholder={info.placeHolder}
       onChange={handleChange}
       onBlur={handleBlur}

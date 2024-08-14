@@ -4,6 +4,7 @@ import useInputStore from "@/store/useInputStore";
 
 interface useInputProps {
   property: string;
+  validateType: string;
   minLength: number;
   maxLength: number;
   inputLabel: string;
@@ -13,15 +14,16 @@ interface useInputProps {
 
 export default function useInput({
   property,
+  validateType,
   minLength,
   maxLength,
   inputLabel,
   inputIndex,
   onNext,
 }: useInputProps) {
-  const checkValidation = InputValidation[property];
+  const checkValidation = InputValidation[validateType];
   const { values, errorMessages, setValues, setErrorMessages } = useInputStore();
-
+  console.log(values, 'values');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     handleTryCatch(() => {
@@ -30,7 +32,7 @@ export default function useInput({
       setErrorMessages(inputLabel, inputIndex, "");
     });
     if (
-      inputLabel !== "userName" &&
+      inputLabel !== "소유자 이름" &&
       !hasErrorMessages(inputLabel) &&
       inputValue.length === maxLength
     ) {
@@ -44,7 +46,7 @@ export default function useInput({
       validateLength(inputValue, minLength)
       checkValidation(inputValue)
     });
-    if (!hasErrorMessages(inputLabel)) {
+    if (!hasErrorMessages(inputLabel) && inputValue.length === maxLength) {
       onNext()
     }
   }

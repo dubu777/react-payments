@@ -16,8 +16,8 @@ const validateNoSpaces = (str: string) => {
 };
 
 const validateNumber = (str: string) => {
-  if ( !Number.isInteger(Number(str))) {
-    throw new Error()
+  if (!Number.isInteger(Number(str))) {
+    throw new Error(ERROR_MESSAGES.INVALID_ONLY_NUMBER)
   }
 }
 
@@ -43,7 +43,7 @@ const validateYear = (str: string) => {
 
 const empty = (n: string) => {
   if (n.length === 0) {
-    throw new Error('빈칸');
+    throw new Error(ERROR_MESSAGES.INVALID_LENGTH);
   }
 }
 

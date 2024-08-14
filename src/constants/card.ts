@@ -35,6 +35,17 @@ export const CARD_COMPANY_CATEGORIES: CardCompany[] = [
   },
 ];
 
+export const CARD_COMPANY_COLOR: Record<string, string> = {
+  BC카드: "#f04651",
+  신한카드: "#0046FF",
+  카카오뱅크: "#FFE600",
+  현대카드: "#000000",
+  우리카드: "#007BC8",
+  롯데카드: "#ED1C24",
+  하나카드: "#009490",
+  국민카드: "#6A6056",
+};
+
 export const DEFAULT_CARD_BOOLEAN: Record<keyof Card, boolean> = {
   cardNumber: false,
   cardCompany: false,

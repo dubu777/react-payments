@@ -5,15 +5,20 @@ import SelectCardCompanyField from "./SelectCardCompanyField";
 import useStep from "@/hooks/useStep";
 import { INPUT_TITLE } from "@/constants/message";
 
-export default function InputForm() {
+interface InputFormProps {
+}
+
+export default function InputForm({}: InputFormProps) {
   const { step, handleNext } = useStep();
+
   return (
     <InputFormContainer>
       {step["password"] && (
         <InputField
           title={INPUT_TITLE.PASSWORD.TITLE}
           inputType={INPUT_TYPE_CATEGORIES.PASSWORD}
-          handleNext={() => handleNext("")}
+          handleNext={() => handleNext("cardNumber")}
+          inputFieldName='password'
         />
       )}
       {step["cvc"] && (
@@ -21,6 +26,7 @@ export default function InputForm() {
           title={INPUT_TITLE.CVC.TITLE}
           inputType={INPUT_TYPE_CATEGORIES.CVC}
           handleNext={() => handleNext("password")}
+          inputFieldName='cvc'
         />
       )}
       {step["userName"] && (
@@ -28,6 +34,7 @@ export default function InputForm() {
           title={INPUT_TITLE.USER_NAME.TITLE}
           inputType={INPUT_TYPE_CATEGORIES.USER_NAME}
           handleNext={() => handleNext("cvc")}
+          inputFieldName='userName'
         />
       )}
       {step["expiryDate"] && (
@@ -36,20 +43,26 @@ export default function InputForm() {
           subtitle={INPUT_TITLE.EXPIRY_DATE.SUBTITLE}
           inputType={INPUT_TYPE_CATEGORIES.EXPIRY_DATE}
           handleNext={() => handleNext("userName")}
+          inputFieldName='expiryDate'
         />
       )}
-      {step["cardCompany"] && <SelectCardCompanyField />}
+      {step["cardCompany"] && 
+      <SelectCardCompanyField
+        handleNext={() => handleNext('expiryDate')}
+        inputFieldName='cardCompany'
+      />}
       <InputField
         title={INPUT_TITLE.CARD_NUMBER.TITLE}
         subtitle={INPUT_TITLE.CARD_NUMBER.SUBTITLE}
         inputType={INPUT_TYPE_CATEGORIES.CARD_NUMBER}
         handleNext={() => handleNext("cardCompany")}
+        inputFieldName='cardNumber'
       />
     </InputFormContainer>
   );
 }
 
-const InputFormContainer = styled.div`
+const InputFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;

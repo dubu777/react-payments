@@ -23,3 +23,16 @@ export interface Card {
   cvc: string;
   password: string;
 }
+
+export interface CardInfo {
+  cardCompany: string;
+  cardNumber1: string;
+  cardNumber2: string;
+  cardNumber3: string;
+  cardNumber4: string;
+  cvc: string;
+  month: string;
+  password: string;
+  userName: string;
+  year: string;
+}

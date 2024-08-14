@@ -5,13 +5,16 @@ import { useState } from "react";
 function useStep() {
   const [step, setStep] = useState<Record<keyof Card, boolean>>(DEFAULT_CARD_BOOLEAN);
 
-  const handleNext = (nextStep: keyof Card | '') => {
+  const handleNext = (nextStep: keyof Card) => {
     setStep((prev) => ({
       ...prev,
       [nextStep]: true,
     }));
   };
-  return { step, handleNext };
+
+  const isCompleted = Object.values(step).every((value) => value === true)
+
+  return { step, handleNext, isCompleted };
 }
 
 export default useStep;
